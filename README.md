@@ -1,6 +1,6 @@
 # YGO Pie 饼图工具
 
-[项目预览](https://deanlightning.github.io/ygo-pie/#/)
+[项目地址](https://deanlightning.github.io/ygo-pie/#/)
 
 ![Preview](./docs/preview.jpg)
 
