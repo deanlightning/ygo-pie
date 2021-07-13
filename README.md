@@ -1,24 +1,13 @@
-# ygo-pie
+# YGO Pie 饼图工具
 
-## Project setup
-```
-npm install
-```
+[项目预览](https://deanlightning.github.io/ygo-pie/#/)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+![Preview](./docs/preview.jpg)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 技术栈
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- :hammer: Vue
+- :hammer: Vue-ECharts
+- :hammer: FileSaver.js
+- :hammer: dom-to-image
+- :hammer: Element-UI
