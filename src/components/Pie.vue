@@ -1,19 +1,21 @@
 <template>
   <div class="pie">
     <div id="pic-node">
-      <section class="info-area">
-        <div class="info">
-          <h1 class="info-title">{{ formData.mainTitle }}</h1>
-          <h2 class="sub-title">{{ formData.subTitle }}</h2>
-          <hr style="width: 400px; margin: 0 10% 10px 60px" />
-          <hr style="width: 400px; margin: 0 30% 10px 0" />
-          <ul v-for="(deck, index) in this.option.series[0].data" :key="index">
-            <li class="deck-item">
-              <span class="deck-num">{{ deck.value }}</span
-              >{{ deck.name }}
-            </li>
-          </ul>
-        </div>
+      <section class="info">
+        <h1 class="info-title">{{ formData.mainTitle }}</h1>
+        <h2 class="sub-title">{{ formData.subTitle }}</h2>
+        <hr style="width: 300px; margin: 0 0 10px 60px" />
+        <hr style="width: 300px; margin: 0 0 10px 0" />
+        <ul
+          class="decks"
+          v-for="(deck, index) in this.option.series[0].data"
+          :key="index"
+        >
+          <div class="deck-item">
+            <span class="deck-num">{{ deck.value }}</span
+            >{{ deck.name }}
+          </div>
+        </ul>
       </section>
 
       <v-chart class="chart" :option="option" />
@@ -210,6 +212,10 @@ export default {
       },
       deckOptions: [
         {
+          value: 'Others',
+          label: 'Others'
+        },
+        {
           value: '电脑堺',
           label: '电脑堺'
         },
@@ -234,8 +240,8 @@ export default {
           label: '雷龙'
         },
         {
-          value: '火灵天星',
-          label: '火灵天星'
+          value: '@火灵天星',
+          label: '@火灵天星'
         },
         {
           value: '十二兽',
@@ -250,8 +256,56 @@ export default {
           label: '闪刀姬'
         },
         {
-          value: 'Others',
-          label: 'Others'
+          value: '自奏圣乐',
+          label: '自奏圣乐'
+        },
+        {
+          value: '龙辉巧',
+          label: '龙辉巧'
+        },
+        {
+          value: '幻影骑士团',
+          label: '幻影骑士团'
+        },
+        {
+          value: '魔救',
+          label: '魔救'
+        },
+        {
+          value: '魔术师',
+          label: '魔术师'
+        },
+        {
+          value: 'METABEAT',
+          label: 'METABEAT'
+        },
+        {
+          value: '电子龙',
+          label: '电子龙'
+        },
+        {
+          value: '调皮宝贝',
+          label: '调皮宝贝'
+        },
+        {
+          value: '抒情歌鸲',
+          label: '抒情歌鸲'
+        },
+        {
+          value: '英雄',
+          label: '英雄'
+        },
+        {
+          value: '神数',
+          label: '神数'
+        },
+        {
+          value: '恩底弥翁',
+          label: '恩底弥翁'
+        },
+        {
+          value: '转生炎兽',
+          label: '转生炎兽'
         }
       ],
       option: {
@@ -266,7 +320,7 @@ export default {
               { value: 24, name: '十二兽' },
               { value: 21, name: '黄金国' },
               { value: 18, name: '闪刀姬' },
-              { value: 16, name: '调皮宝贝' },
+              { value: 16, name: '龙女仆' },
               { value: 13, name: '龙辉巧' },
               { value: 30, name: 'Others' }
             ],
@@ -336,6 +390,9 @@ export default {
       }
     }
   },
+  mounted () {
+    this.sortSelectOptions()
+  },
   methods: {
     isDeckTypeEqual (value) {
       this.typeCount = 0
@@ -392,8 +449,21 @@ export default {
 
       for (let i = 0; i < decks.length; i++) {
         if (decks[i].name === 'Others') {
-          const otherItem = this.option.series[0].data.splice(i, 1)
-          this.option.series[0].data.push(otherItem[0])
+          const othersItem = this.option.series[0].data.splice(i, 1)
+          this.option.series[0].data.push(othersItem[0])
+          return
+        }
+      }
+    },
+    sortSelectOptions () {
+      this.deckOptions.sort((a, b) => {
+        return a.value.localeCompare(b.value)
+      })
+
+      for (let i = 0; i < this.deckOptions.length; i++) {
+        if (this.deckOptions[i].value === 'Others') {
+          const othersItem = this.deckOptions.splice(i, 1)
+          this.deckOptions.unshift(othersItem[0])
           return
         }
       }
@@ -426,21 +496,22 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@900&display=swap');
 
 .pie {
-  height: 900px;
+  min-height: 800px;
   position: relative;
   background: url(../../public/background.jpg);
 }
 
 .chart {
   width: 900px;
-  height: 600px;
+  height: 650px;
   position: absolute;
-  top: 100px;
-  left: 450px;
+  top: 90px;
+  left: 400px;
 }
 
 #pic-node {
-  height: 900px;
+  min-width: 1500px;
+  min-height: 800px;
   background: url(../../public/background.jpg);
 }
 
@@ -532,41 +603,46 @@ export default {
   transition: all 0.1s;
 }
 
-.info-area {
-  position: relative;
-}
-
 .info {
-  position: absolute;
   padding: 20px 0 10px 20px;
 }
 
 .info-title {
   font-size: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   color: #f7dd41;
   font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 600;
 }
 
 .sub-title {
   display: inline-block;
   font-size: 30px;
-  margin-bottom: 10px;
-  color: #f7dd41;
+  margin-bottom: 16px;
+  color: #e9f1f6;
   font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 600;
+}
+
+.decks {
+  min-width: 100px;
 }
 
 .deck-item {
-  display: inline-block;
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #f7dd41;
+  min-width: 100px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 22px;
+  margin-bottom: 3px;
+  color: #f8e58c;
   font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 600;
 }
 
 .deck-num {
   display: inline-block;
   width: 40px;
+  color: #e9f1f6;
 }
 
 .deck-input {
